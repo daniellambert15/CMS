@@ -129,18 +129,19 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'admin'], function () {
 
 //// Categories
     // List
-    Route::get('/listCategory', 'ProductController@index')->name('dashboard.list.categories');
+    Route::get('/listCategory', 'CategoryController@index')->name('dashboard.list.categories');
     // Add
-    Route::get('/addCategory', 'ProductController@create')->name('dashboard.add.category');
+    Route::get('/addCategory', 'CategoryController@create')->name('dashboard.add.category');
+    Route::post('/addCategory', 'CategoryController@store')->name('dashboard.save.category');
     // Edit
-    Route::get('/editCategory', 'ProductController@index')->name('dashboard.edit.category');
-    Route::get('/saveEditCategory', 'ProductController@update')->name('dashboard.save.update.category');
+    Route::get('/editCategory/{id}', 'CategoryController@edit')->name('dashboard.edit.category');
+    Route::post('/saveEditCategory', 'CategoryController@update')->name('dashboard.save.update.category');
     // Remove
-    Route::get('/removeCategoryt', 'ProductController@index')->name('dashboard.remove.category');
-    // Category Images
-    Route::get('/removeCategory', 'ProductController@index')->name('dashboard.category.images');
-
-
+    Route::get('/deleteCategory/{id}', 'CategoryController@delete')->name('dashboard.remove.category');
+    // Destory
+    Route::get('/destoryCategory/{id}', 'CategoryController@destroy')->name('dashboard.destroy.category');
+    // Restore
+    Route::get('/restoreCategory/{id}', 'CategoryController@restore')->name('dashboard.restore.category');
 });
 
 

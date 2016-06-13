@@ -84,21 +84,26 @@
                 <a href="#"><i class="fa fa-product-hunt" aria-hidden="true"></i> Products <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     @can('addProduct')
-                    <li><a href="{{ route('dashboard.add.product') }}">Add Product</a></li>
-                    @endcan
-                    @can('editProduct')
-                    <li><a href="{{ route('dashboard.list.products') }}">Edit Products</a></li>
-                    @endcan
-                    @can('category')
-                        @can('addCategory')
-                        <li><a href="{{ route('dashboard.add.category') }}">Add Category</a></li>
+                        <li><a href="{{ route('dashboard.add.product') }}">Add Product</a></li>
                         @endcan
-                        @can('editCategories')
-                        <li><a href="{{ route('dashboard.list.categories') }}">Edit Categories</a></li>
-                        @endcan
+                        @can('editProduct')
+                        <li><a href="{{ route('dashboard.list.products') }}">Edit Products</a></li>
                     @endcan
                 </ul>
             </li>
+            @endcan
+            @can('category')
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-folder-o" aria-hidden="true"></i>Product Categories <i class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu">
+                        @can('addCategory')
+                            <li><a href="{{ route('dashboard.add.category') }}">Add Category</a></li>
+                        @endcan
+                        @can('editCategories')
+                            <li><a href="{{ route('dashboard.list.categories') }}">Edit Categories</a></li>
+                        @endcan
+                    </ul>
+                </li>
             @endcan
         </ul><!-- /.sidebar-menu -->
     </section>

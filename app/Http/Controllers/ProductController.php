@@ -191,6 +191,12 @@ class ProductController extends Controller
             return redirect()->route('dashboard.home')->with('error', 'You cannot do that!');
         }
         Product::onlyTrashed()->where('id', $id)->restore();
-        Return redirect()->route('dashboard.list.products')->with('success', 'Your product has been restored');
+        $Product = Product::find($id);
+        $Product->name = $Product->name.' '.date("Y-m-d H:i:s");
+
+        $Product->save();
+
+
+        Return redirect()->route('dashboard.list.products')->with('success', 'Your product has been restored - However, you\'ll need to rename the product. A timestamp has been placed on the end of the name as to stop with duplications ');
     }
 }
