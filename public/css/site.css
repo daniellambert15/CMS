@@ -1,0 +1,9 @@
+.navbar-brand img{
+    width: 80px;
+}
+
+body {
+    padding-top: 51px;
+    background: url("http://www.gas-elec.co.uk/images/background.jpg");
+    background-repeat: repeat-x;
+}
