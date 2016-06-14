@@ -56,7 +56,10 @@
                                 <td>{{ $category->live }}</td>
                                 <td>{{ $category->hidden }}</td>
                                 <td>{{ $category->sitemap }}</td>
-                                <td>@can('editCategories')
+                                <td>@can('productCategories')
+                                        <a class="btn btn-primary btn-sm" title="add products to category" href="{{ route('dashboard.add.products.category', ['id' => $category->id]) }}" role="button"><i class="fa fa-plus"></i> Products</a>
+                                    @endcan
+                                    @can('editCategories')
                                         <a class="btn btn-primary btn-sm" title="edit Category" href="{{ route('dashboard.edit.category', ['id' => $category->id]) }}" role="button"><i class="fa fa-pencil-square-o"></i></a>
                                     @endcan
                                     @can('deleteCategory')

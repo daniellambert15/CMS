@@ -158,7 +158,7 @@ return [
         App\Providers\NavServiceProvider::class,
 
         // Image Provider
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 

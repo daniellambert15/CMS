@@ -38,4 +38,13 @@ class Category extends Model
             }else{return 'Unused Category';}
         }else{return 'top category';}
     }
+
+
+    /**
+     * @return array
+     */
+    public function hasProduct($product)
+    {
+        return $this->products()->where('id' , '=', $product)->exists();
+    }
 }

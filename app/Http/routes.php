@@ -133,6 +133,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'admin'], function () {
     // Add
     Route::get('/addCategory', 'CategoryController@create')->name('dashboard.add.category');
     Route::post('/addCategory', 'CategoryController@store')->name('dashboard.save.category');
+
+    // Products To Categories
+    Route::get('/productsToCategories/{id}', 'CategoryController@PTC')->name('dashboard.add.products.category');
+    Route::get('/detachProduct/{productId}/{categoryId}', 'CategoryController@detach')->name('dashboard.detach.product');
+    Route::get('/attachProduct/{productId}/{categoryId}', 'CategoryController@attach')->name('dashboard.attach.product');
+
     // Edit
     Route::get('/editCategory/{id}', 'CategoryController@edit')->name('dashboard.edit.category');
     Route::post('/saveEditCategory', 'CategoryController@update')->name('dashboard.save.update.category');
@@ -174,4 +180,11 @@ Route::group(['middleware' => ['web', 'tracking']], function () {
 Route::group(['middleware' => ['api']], function () {
     // TrackingClick
     Route::post('/trackingClick', 'TrackingController@trackingClick');
+});
+
+
+Route::get('/shoppingCart', function(){
+
+
+
 });
