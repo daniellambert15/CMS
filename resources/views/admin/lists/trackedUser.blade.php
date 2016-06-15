@@ -67,7 +67,7 @@
                             <tr>
                                 <td>{{ $tracking->id }}</td>
                                 <td>{{ $tracking->trackingId }}</td>
-                                <td>{{ $tracking->pageIdToName($tracking->pageId) }}</td>
+                                <td>{{ $tracking->pageIdToName($tracking->pageId, $tracking->type_id) }}</td>
                                 <td>{{ $tracking->forwardId }}</td>
                                 <td>{{ $tracking->referer }}</td>
                                 <td>{{ $tracking->created_at }}</td>

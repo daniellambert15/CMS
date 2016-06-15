@@ -13,6 +13,11 @@ use App\Models\Forward;
 class ForwardController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function forward(Request $request, CookieJar $cookieJar ,$trackingId = null)
     {
         // So the user has hit a forwarding URL, we want to figure out these:

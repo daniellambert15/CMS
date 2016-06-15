@@ -36,7 +36,7 @@ class Page extends Model
 
     public function tracking()
     {
-        return $this->hasMany('App\Models\Tracking', 'pageId')->groupBy('trackingId');
+        return $this->hasMany('App\Models\Tracking', 'pageId')->where('type_id', 1)->groupBy('trackingId');
     }
 
     public function leads()

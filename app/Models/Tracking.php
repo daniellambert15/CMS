@@ -17,8 +17,13 @@ class Tracking extends Model
     	return $this->hasMany('App\Models\Lead', 'trackingId');
     }
 
-    public function pageIdToName($id)
+    public function pageIdToName($id, $type)
     {
-        return Page::where('id', "=", $id)->first()->url;
+        if($type == 1)
+        {
+            return Page::find($id)->url;
+        }elseif ($type == 2){
+            return 'Shop-> '.Product::find($id)->name;
+        }
     }
 }

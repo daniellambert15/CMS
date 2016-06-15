@@ -24,6 +24,34 @@
                         @include('site.layouts.partials_menu', $page)
                     @endforeach
                 @endif
+
+                <li class="dropdown">
+                    <a href="/Shop.html" class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       role="button"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        Shop <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu hover"
+                        data-name="hovering over 'UL' Shop"
+                        data-type="main-nav-dropdown"
+                        data-action="hover">
+                        @foreach($products as $product)
+                            <li>
+                                <a href="/Shop/{{ $product->name }}.html"
+                                   data-name="hovering over 'LI' Shop > {{ $product->name }}"
+                                   data-type="main-nav"
+                                   class="hover"
+                                   data-action="hover">
+                                    {{ $product->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

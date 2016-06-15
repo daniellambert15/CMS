@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Cookie;
 use App\Models\Page;
 use App\Models\Tracking;
@@ -30,5 +31,18 @@ class SiteController extends Controller
 
         // return the view and the page data.
         return view('site.article', ['page' => $page]);
+    }
+
+    public function shop($productName, Request $request)
+    {
+        $product = Product::where('name','=', $productName)
+            ->where('live','=', 'Y')
+            ->first();
+
+        // set a product track
+        $tracking = new TrackingController;
+        $tracking->trackShop($product, $request);
+
+        return view('site.product', ['product' => $product]);
     }
 }

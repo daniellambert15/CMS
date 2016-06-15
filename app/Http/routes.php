@@ -73,6 +73,19 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'admin'], function () {
     Route::get('/detachImagePage/{pageId}/{imageId}', 'PageController@detachImagePage')->name('dashboard.detach.image.page');
 
 
+//// Customers ////
+    // List Customers
+    Route::get('/listCustomers/', 'CustomerController@index')->name('dashboard.list.customers');
+
+    // Edit
+    Route::get('/editCustomers/{id}', 'CustomerController@index')->name('dashboard.edit.customers');
+    // Delete
+    Route::get('/deleteCustomers/{id}', 'CustomerController@index')->name('dashboard.delete.customers');
+    // Undelete
+    Route::get('/restoreCustomers/{id}', 'CustomerController@index')->name('dashboard.restore.customers');
+    // Destrory
+    Route::get('/destroyCustomers/{id}', 'CustomerController@index')->name('dashboard.destroy.customers');
+
 
 //// Images ////
     // create images
@@ -91,6 +104,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'admin'], function () {
     Route::get('/pageAnalytics', 'TrackingController@pageAnalytics')->name('dashboard.page.analytics');
     // pageUsers
     Route::get('/pageUsers/{id}', 'TrackingController@pageUsers')->name('dashboard.page.users');
+    // productUsers
+    Route::get('/productUsers/{id}', 'TrackingController@productUsers')->name('dashboard.product.users');
     // trackedUser
     Route::get('/trackedUser/{id}', 'TrackingController@trackedUser')->name('dashboard.tracked.user');
 
@@ -167,6 +182,10 @@ Route::group(['middleware' => ['web', 'tracking']], function () {
 
     // site
     Route::get('/{url}.html', 'SiteController@index');
+
+    // Shop
+    Route::get('/Shop/{product}.html', 'SiteController@shop');
+
 
     // tracking
     Route::get('/forward/', 'ForwardController@forward');

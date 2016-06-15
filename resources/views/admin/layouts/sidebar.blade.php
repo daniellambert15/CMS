@@ -105,6 +105,16 @@
                     </ul>
                 </li>
             @endcan
+            @can('customers')
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i>Customers <i class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu">
+                        @can('listCustomers')
+                            <li><a href="{{ route('dashboard.list.customers') }}">Customers</a></li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

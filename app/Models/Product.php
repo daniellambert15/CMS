@@ -37,4 +37,9 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Category');
     }
+
+    public function tracking()
+    {
+        return $this->hasMany('App\Models\Tracking', 'pageId')->where('type_id', 2)->groupBy('trackingId');
+    }
 }

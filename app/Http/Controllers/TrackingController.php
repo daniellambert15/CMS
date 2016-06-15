@@ -9,6 +9,7 @@ use Cookie;
 use App\Models\Lead;
 use App\Models\Page;
 use App\Models\User;
+use App\Models\Product;
 use App\Models\Tracking;
 use App\Models\TrackingClick;
 
@@ -30,6 +31,21 @@ class TrackingController extends Controller
         $tracking = new Tracking;
         $tracking->trackingId = session('trackingId');
         $tracking->pageId = $page->id;
+        $tracking->type_id = '1';
+        $tracking->IP = $_SERVER['REMOTE_ADDR'];
+        if(isset($_SERVER['HTTP_USER_AGENT'])){$tracking->browser = $_SERVER['HTTP_USER_AGENT'];}
+        if(isset($_SERVER['HTTP_REFERER'])){$tracking->referer = $_SERVER['HTTP_REFERER'];}
+        $tracking->visitedBefore = session('visitedBefore');
+        if($request->session()->get('forwardId') != null){$tracking->forwardId = $request->session()->get('forwardId');}else{$tracking->forwardId = 0;}
+        $tracking->save();
+    }
+
+    public function trackShop($Product, $request)
+    {
+        $tracking = new Tracking;
+        $tracking->trackingId = session('trackingId');
+        $tracking->pageId = $Product->id;
+        $tracking->type_id = '2';
         $tracking->IP = $_SERVER['REMOTE_ADDR'];
         if(isset($_SERVER['HTTP_USER_AGENT'])){$tracking->browser = $_SERVER['HTTP_USER_AGENT'];}
         if(isset($_SERVER['HTTP_REFERER'])){$tracking->referer = $_SERVER['HTTP_REFERER'];}
@@ -53,14 +69,22 @@ class TrackingController extends Controller
 
     public function pageAnalytics()
     {
-        return view('admin.lists.pageAnalytics', ['pages' => Page::all()]);
+        return view('admin.lists.pageAnalytics', ['pages' => Page::all(), 'products' => Product::all() ]);
     }
 
     public function pageUsers($pageId)
     {
         return view('admin.lists.pageUsers', [
-            'trackings' => Tracking::where('pageId', "=", $pageId)->groupBy('trackingId')->orderBy('created_at', 'desc')->get(),
-            'leads' => Lead::where('pageId', "=", $pageId)->orderBy('created_at', 'desc')->get()
+            'trackings' => Tracking::where('pageId', "=", $pageId)->where('type_id', 1)->groupBy('trackingId')->orderBy('created_at', 'desc')->get(),
+            'leads' => Lead::where('pageId', "=", $pageId)->where('type_id', 1)->orderBy('created_at', 'desc')->get()
+        ]);
+    }
+
+    public function productUsers($pageId)
+    {
+        return view('admin.lists.productUsers', [
+            'trackings' => Tracking::where('pageId', "=", $pageId)->where('type_id', 2)->groupBy('trackingId')->orderBy('created_at', 'desc')->get(),
+            'leads' => Lead::where('pageId', "=", $pageId)->where('type_id', 2)->orderBy('created_at', 'desc')->get()
         ]);
     }
 
@@ -68,8 +92,10 @@ class TrackingController extends Controller
     public function trackedUser($trackingId)
     {
         return view('admin.lists.trackedUser', [
-            'trackings' => Tracking::where('trackingId', '=', $trackingId)->orderBy('created_at', 'desc')->get(),
-            'leads' => Lead::where('trackingId', '=', $trackingId)->orderBy('created_at', 'desc')->get()
+            'trackings' => Tracking::where('trackingId', '=', $trackingId)
+                ->orderBy('created_at', 'desc')->get(),
+            'leads' => Lead::where('trackingId', '=', $trackingId)
+                ->orderBy('created_at', 'desc')->get()
         ]);
     }
 

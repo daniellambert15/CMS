@@ -58,4 +58,35 @@
             </div>
         </div>
     </div>
+<h3>Shop Visitors</h3>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Hits</th>
+                        <th>Leads</th>
+                        <th>Conversion Rate</th>
+                        <th>Visitor Information</th>
+                    </tr>
+                    @foreach($products as $product)
+                        <tr>
+                            <td>{{ $product->id }}</td>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ count($product->tracking) }}</td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <a class="btn btn-success btn-sm" title="View Users" href="{{ route('dashboard.product.users', ['id' => $product->id]) }}" role="button"><i class="fa fa-user"></i></a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

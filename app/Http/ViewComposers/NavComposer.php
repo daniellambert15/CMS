@@ -3,6 +3,7 @@
 namespace App\Http\ViewComposers;
 
 use App\Models\Page;
+use App\Models\Product;
 use Illuminate\View\View;
 use Illuminate\Users\Repository as UserRepository;
 
@@ -14,6 +15,7 @@ class NavComposer
      * @var UserRepository
      */
     protected $pages;
+    protected $products;
 
     /**
      * Create a new profile composer.
@@ -28,6 +30,10 @@ class NavComposer
             ->where('hidden', '=', 'N')
             ->where('live', '=', 'Y')
             ->get();
+
+        $this->products = Product::where('hidden', '=', 'N')
+            ->where('live', '=', 'Y')
+            ->get();
     }
 
     /**
@@ -38,6 +44,6 @@ class NavComposer
      */
     public function compose(View $view)
     {
-        $view->with('pages', $this->pages);
+        $view->with(['pages' => $this->pages,'products' => $this->products]);
     }
 }
