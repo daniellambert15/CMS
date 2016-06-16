@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Gate;
 use CookieJar;
 use App\Models\User;
 use App\Models\Lead;
 use App\Models\Page;
 use App\Http\Requests;
 use App\Models\Forward;
+use Illuminate\Http\Request;
 
 class ForwardController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function forward(Request $request, CookieJar $cookieJar ,$trackingId = null)
     {
@@ -62,6 +58,9 @@ class ForwardController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('forward')) {
+            return redirect()->route('dashboard.home')->with('error', 'You cannot do that!');
+        }
         return view('admin.lists.forwards', ['forwards' => Forward::all()]);
     }
 
@@ -72,6 +71,9 @@ class ForwardController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('forward')) {
+            return redirect()->route('dashboard.home')->with('error', 'You cannot do that!');
+        }
         return view('admin.create.forward', ['pages' => Page::where('live', '=', "Y")->get()]);
     }
 
@@ -83,6 +85,9 @@ class ForwardController extends Controller
      */
     public function store(Request $request)
     {
+        if (Gate::denies('forward')) {
+            return redirect()->route('dashboard.home')->with('error', 'You cannot do that!');
+        }
         $forward = new Forward;
         $forward->url = $request->input('url');
         $forward->description = $request->input('description');
@@ -132,6 +137,9 @@ class ForwardController extends Controller
      */
     public function destroy($id)
     {
+        if (Gate::denies('forward')) {
+            return redirect()->route('dashboard.home')->with('error', 'You cannot do that!');
+        }
         $forward = Forward::find($id);
         $forward->delete();
         return redirect()->route('dashboard.list.forwards')->with('success', 'Forward has been successfully deleted!');

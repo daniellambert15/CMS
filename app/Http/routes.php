@@ -14,7 +14,6 @@
 Route::group(['prefix' => 'dashboard', 'middleware' => 'admin'], function () {
     Route::auth();
 
-
 // Dashboard
     Route::get('/home', 'AdminController@index')->name('dashboard.home');
 
@@ -76,15 +75,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'admin'], function () {
 //// Customers ////
     // List Customers
     Route::get('/listCustomers/', 'CustomerController@index')->name('dashboard.list.customers');
-
     // Edit
-    Route::get('/editCustomers/{id}', 'CustomerController@index')->name('dashboard.edit.customers');
+    Route::get('/editCustomers/{id}', 'CustomerController@edit')->name('dashboard.edit.customer');
+    Route::post('/saveUpdateCustomer', 'CustomerController@update')->name('dashboard.save.update.customer');
     // Delete
-    Route::get('/deleteCustomers/{id}', 'CustomerController@index')->name('dashboard.delete.customers');
+    Route::get('/deleteCustomers/{id}', 'CustomerController@delete')->name('dashboard.delete.customer');
     // Undelete
-    Route::get('/restoreCustomers/{id}', 'CustomerController@index')->name('dashboard.restore.customers');
+    Route::get('/restoreCustomers/{id}', 'CustomerController@restore')->name('dashboard.restore.customer');
     // Destrory
-    Route::get('/destroyCustomers/{id}', 'CustomerController@index')->name('dashboard.destroy.customers');
+    Route::get('/destroyCustomers/{id}', 'CustomerController@destroy')->name('dashboard.destroy.customer');
+    // Invoices
+    Route::get('/customerInvoices/{id}', 'CustomerController@index')->name('dashboard.customer.invoices');
 
 
 //// Images ////
@@ -202,8 +203,10 @@ Route::group(['middleware' => ['api']], function () {
 });
 
 
-Route::get('/shoppingCart', function(){
+Route::group(['prefix' => 'portal', 'middleware' => 'customer'], function () {
 
-
+    Route::get('/login', 'CustomerAuth\AuthController@loginForm');
+    Route::post('/login', 'CustomerAuth\AuthController@postLogin');
+    Route::get('/home', 'Customer\PortalController@index')->name('portal.home');
 
 });

@@ -16,6 +16,9 @@ class ContactFormController extends Controller
         $trackingController = new TrackingController();
         $trackingCode = $trackingController->checkEmail($request);
 
+        $userController = new CustomerController();
+        $customer_id = $userController->findCustomerByEmail($request);
+
         // right, now we've got the correc tracking code. we want to check a few values
 
         $this->validate($request, [
@@ -48,6 +51,11 @@ class ContactFormController extends Controller
         $lead->forwardedId = $request->session()->get('forwardId');
         $lead->area = $postcode->postcodeToOffice($thePostcode);
         $lead->sentToEcis = "N";
+
+        if($customer_id){
+            $lead->customer_id = $customer_id;
+        }
+
         $lead->save();
 
         // now we fire the user off to the thank you page

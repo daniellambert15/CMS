@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Delivery_Address extends Model
 {
+    protected $table = 'delivery_addresses';
 
     /**
      * The attributes that are mass assignable.
@@ -14,7 +15,6 @@ class Delivery_Address extends Model
      */
     protected $fillable = ['customer_id', 'addressLine1',
         'addressLine2', 'town', 'county', 'postcode', 'firstName', 'surname'];
-
 
     // setup relationships
     public function customer(){

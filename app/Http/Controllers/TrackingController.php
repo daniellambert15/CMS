@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 use Cookie;
@@ -115,14 +116,14 @@ class TrackingController extends Controller
             $trackingCode = $lead->trackingId;
         }
 
-        // Now, if the lead has signed up for a user account, that tracking code assigned to that user will trump
+        // Now, if the lead has signed up for a customer account, that tracking code assigned to that customer will trump
         // all of the other assigned tracking codes.
 
-        $user = User::where('email','=',$request->input('email'))->first();
+        $customer = Customer::where('email','=',$request->input('email'))->first();
 
-        if(count($user) > 0)
+        if(count($customer) > 0)
         {
-            $trackingCode = $user->trackingId;
+            $trackingCode = $customer->tracking_id;
         }
 
         // now we want to update ALL their clicks they've done now, with the old tracking Id, IF a new one is set.

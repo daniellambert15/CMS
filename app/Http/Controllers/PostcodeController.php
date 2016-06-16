@@ -83,6 +83,8 @@ class PostcodeController extends Controller
      */
     public function postcodeToOffice($postcode)
     {
-        return Postcode::where('postcode', '=', $postcode)->first()->areaOffice;
+        //return Postcode::where('postcode', '=', $postcode)->first()->areaOffice;
+
+        return 21;
     }
 }

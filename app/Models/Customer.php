@@ -29,7 +29,7 @@ class Customer extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['firstName', 'surname', 'email', 'password'];
+    protected $fillable = ['firstName', 'surname', 'email', 'password', 'tracking_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -52,5 +52,9 @@ class Customer extends Model implements AuthenticatableContract,
     public function deliveryAddresses()
     {
         return $this->hasMany('App\Models\Delivery_Address');
+    }
+
+    public function leads(){
+        return $this->hasMany('App\Models\Leads', 'id', 'customer_id');
     }
 }
