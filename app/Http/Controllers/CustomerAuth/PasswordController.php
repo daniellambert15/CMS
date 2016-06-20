@@ -20,6 +20,11 @@ class PasswordController extends Controller
 
     use ResetsPasswords;
 
+    protected $linkRequestView = 'customer.auth.passwords.email';
+    protected $guard = 'customers';
+    protected $redirectTo = '/';
+
+
     /**
      * Create a new password controller instance.
      *

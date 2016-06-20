@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box box-primary">
-                <div class="box-header with-border">Welcome {{ Auth::guard('customer')->user()->firstName }}</div>
+                <div class="box-header with-border">Welcome {{ Auth::guard('customer')->user()->firstName }} {{ Auth::guard('customer')->user()->surname }}</div>
 
                 <div class="panel-body">
                     You are logged in!

@@ -205,8 +205,32 @@ Route::group(['middleware' => ['api']], function () {
 
 Route::group(['prefix' => 'portal', 'middleware' => 'customer'], function () {
 
-    Route::get('/login', 'CustomerAuth\AuthController@loginForm');
-    Route::post('/login', 'CustomerAuth\AuthController@postLogin');
+//    Route::get('/login', 'CustomerAuth\AuthController@loginForm');
+//    Route::post('/login', 'CustomerAuth\AuthController@postLogin');
+//
+//    Route::get('/logout', function(){
+//        Auth::guard('customer')->logout();
+//        return redirect('home.html');
+//    });
+//
+//    Route::get('/password/reset/{id}', 'CustomerAuth\PasswordController@getEmail' );
+//    Route::post('/password/email', 'CustomerAuth\PasswordController@postEmail');
+//
+
+    Route::get('/', 'Customer\PortalController@index')->name('portal.home');
     Route::get('/home', 'Customer\PortalController@index')->name('portal.home');
+
+    Route::get('login', 'CustomerAuth\AuthController@showLoginForm');
+    Route::post('login', 'CustomerAuth\AuthController@login');
+    Route::get('logout', 'CustomerAuth\AuthController@logout');
+
+    // Registration Routes...
+    Route::get('register', 'CustomerAuth\AuthController@showRegistrationForm');
+    Route::post('register', 'CustomerAuth\AuthController@register');
+
+    // Password Reset Routes...
+    Route::get('password/reset/{token?}', 'CustomerAuth\PasswordController@showResetForm');
+    Route::post('password/email', 'CustomerAuth\PasswordController@sendResetLinkEmail');
+    Route::post('password/reset', 'CustomerAuth\PasswordController@reset');
 
 });
