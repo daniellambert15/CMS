@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\CustomerAuth;
+namespace App\Http\Controllers\AdminAuth;
 
 use Mail;
 use App\Models\User;
@@ -23,11 +23,10 @@ class PasswordController extends Controller
 
     use ResetsPasswords;
 
-    protected $linkRequestView = 'customer.auth.passwords.email';
-    protected $resetView = 'customer.auth.passwords.reset';
-    protected $guard = 'customer';
-    protected $redirectTo = '/portal/home';
-    protected $broker = 'customers';
+    protected $linkRequestView = 'admin.auth.passwords.email';
+    protected $resetView = 'admin.auth.passwords.reset';
+    protected $redirectTo = '/dashboard/home';
+    protected $broker = 'admins';
 
 
     /**

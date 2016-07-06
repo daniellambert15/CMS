@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\CustomerAuth;
+namespace App\Http\Controllers\AdminAuth;
 
 use Auth;
 use Lang;
@@ -25,10 +25,9 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers;
 
-    protected $redirectTo = '/portal/home';
+    protected $redirectTo = '/dashboard/home';
     protected $redirectAfterLogout = 'home.html';
-    protected $guard = 'customer';
-    protected $loginView = 'customer.auth.login';
+    protected $loginView = 'admin.auth.login';
 
     /**
      * Create a new authentication controller instance.
@@ -37,7 +36,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('customerGuest', ['except' => 'logout']);
+        $this->middleware('guest', ['except' => 'logout']);
     }
 
     /**
@@ -75,7 +74,6 @@ class AuthController extends Controller
     {
         return $this->showLoginForm();
     }
-
 
     /**
      * Handle a login request to the application.

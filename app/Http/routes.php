@@ -12,7 +12,19 @@
 */
 
 Route::group(['prefix' => 'dashboard', 'middleware' => 'admin'], function () {
-    Route::auth();
+
+    Route::get('login', 'AdminAuth\AuthController@showLoginForm');
+    Route::post('login', 'AdminAuth\AuthController@login');
+    Route::get('logout', 'AdminAuth\AuthController@logout');
+
+    // Registration Routes...
+    Route::get('register', 'AdminAuth\AuthController@showRegistrationForm');
+    Route::post('register', 'AdminAuth\AuthController@register');
+
+    // Password Reset Routes...
+    Route::get('password/reset/{token?}', 'AdminAuth\PasswordController@showResetForm');
+    Route::post('password/email', 'AdminAuth\PasswordController@sendResetLinkEmail');
+    Route::post('password/reset', 'AdminAuth\PasswordController@reset');
 
 // Dashboard
     Route::get('/home', 'AdminController@index')->name('dashboard.home');

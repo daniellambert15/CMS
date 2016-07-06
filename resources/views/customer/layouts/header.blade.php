@@ -2,7 +2,7 @@
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="{{ route('dashboard.home') }}" class="logo">gas-<em>elec</em></a>
+    <a href="{{ route('portal.home') }}" class="logo">gas-<em>elec</em></a>
 
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
