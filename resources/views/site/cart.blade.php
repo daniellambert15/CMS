@@ -24,7 +24,41 @@
                         </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            Product: &pound;{{ ($cart->products->sum(function($item) { return $item->price * $item->quantity; }) / 100) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            Delivery: &pound;{{ ($cart->products->sum(function($item) { return $item->delivery * $item->quantity; }) / 100) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Vat: &pound;{{
+                    ($cart->products->sum(function($item) { return $item->price * $item->quantity; }) / 100 * 0.2) }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total: &pound;{{
+                    ($cart->products->sum(function($item) { return $item->price * $item->quantity; }) / 100  * 1.2) +
+                    ($cart->products->sum(function($item) { return $item->delivery * $item->quantity; }) / 100) }}</td>
+                    </tr>
+                </tfoot>
             </table>
+
         </div>
     </div>
 @endsection

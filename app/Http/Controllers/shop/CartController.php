@@ -82,6 +82,13 @@ class CartController extends Controller
         $product = Product::where('id',$request->input('id'))
         ->where('live', 'Y')->get()->first();
 
+        // To save a messy basket, with mutiples of the same poduct in, we're going to search to see
+        // if its already got the product in it.
+
+        // get the cart information
+        $cart = Cart::find(session('basketId'));
+
+
         // this will add a product to the basket.
         $cartProduct = new Cart_Product;
         $cartProduct->cart_id = session('basketId');

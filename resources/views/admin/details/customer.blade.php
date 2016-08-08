@@ -96,6 +96,11 @@
     @if(count($customer->orders) > 0)
         <h2>Orders</h2>
         @foreach($customer->orders as $order)
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>#{{ $order->id }}</h2>
+                </div>
+            </div>
             <div class="row" >
                 <div class="col-xs-4">
                     <div class="panel panel-default">

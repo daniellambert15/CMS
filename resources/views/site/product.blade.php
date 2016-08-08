@@ -11,10 +11,9 @@
             <form method="post" action="/Shop/addToBasket">
                 {{ csrf_field() }}
                 <input value="{!! $product->id !!}" name="id" type="hidden" />
-                <input value="1" name="quantity" type="hidden" />
+                <input value="1" name="quantity" type="text" />
                 <button class="btn btn-default" type="submit">Buy Me!</button>
             </form>
-
         </div>
     </div>
 @endsection
