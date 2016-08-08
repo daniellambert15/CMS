@@ -12,7 +12,9 @@ class AddIncrementsToCartProduct extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('cart_product', function ($table) {
+            $table->increments('id');
+        });
     }
 
     /**
@@ -22,6 +24,8 @@ class AddIncrementsToCartProduct extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('cart_product', function ($table) {
+            $table->dropColumn('id');
+        });
     }
 }
