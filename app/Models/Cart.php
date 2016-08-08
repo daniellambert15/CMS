@@ -16,7 +16,7 @@ class Cart extends Model
     // now we create our connections
 
     public function products(){
-        return $this->hasMany('App\Models\Cart_Product');
+        return $this->hasMany('App\Models\Cart_Product', 'cart_id', 'id');
     }
 
     public function delivery(){

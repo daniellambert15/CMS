@@ -141,8 +141,7 @@ class CartController extends Controller
 
     public function cart(){
 
-        $cart = Cart::where('id', session('basketId'))->get();
-
+        $cart = Cart::find(session('basketId'));
         return view('site.cart', ['cart' => $cart]);
     }
 }
