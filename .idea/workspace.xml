@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37bfc984-38d3-4f40-80e1-28b0f42c4733" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/database/migrations/2016_08_08_161721_addIncrementsTo_cart_product.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/shop/CartController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/shop/CartController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/details/customer.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/details/customer.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/site/cart.blade.php" afterPath="$PROJECT_DIR$/resources/views/site/cart.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/site/product.blade.php" afterPath="$PROJECT_DIR$/resources/views/site/product.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2016_08_08_161721_addIncrementsTo_cart_product.php" afterPath="$PROJECT_DIR$/database/migrations/2016_08_08_161721_addIncrementsTo_cart_product.php" />
     </list>
     <ignored path="gasElec.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,14 +32,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CartController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CartController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/shop/CartController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="83">
-              <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+            <state relative-caret-position="287">
+              <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
               <folding>
                 <element signature="e#45#65#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2016_08_08_161721_addIncrementsTo_cart_product.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2016_08_08_161721_addIncrementsTo_cart_product.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -61,7 +67,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/Controllers/TrackingController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/PostcodeController.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/Customer/Authenticate.php" />
         <option value="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" />
@@ -112,6 +117,7 @@
         <option value="$PROJECT_DIR$/resources/views/admin/details/customer.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/site/product.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/shop/CartController.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2016_08_08_161721_addIncrementsTo_cart_product.php" />
       </list>
     </option>
   </component>
@@ -653,7 +659,7 @@
       <workItem from="1469521267739" duration="758000" />
       <workItem from="1469522894843" duration="107000" />
       <workItem from="1469792546364" duration="621000" />
-      <workItem from="1470647010632" duration="14930000" />
+      <workItem from="1470647010632" duration="15246000" />
     </task>
     <task id="LOCAL-00001" summary="testing phpstorm">
       <created>1465817574860</created>
@@ -746,11 +752,25 @@
       <option name="project" value="LOCAL" />
       <updated>1470669949186</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Admin auth + Customer auth = Done!&#10;&#10;Now creating creating the shopping basket and payments">
+      <created>1470673077604</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1470673077604</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Admin auth + Customer auth = Done!&#10;&#10;Now creating creating the shopping basket and payments">
+      <created>1470673164525</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1470673164525</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="202426000" />
+    <option name="totallyTimeSpent" value="202742000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -855,13 +875,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="40" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1231,11 +1244,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/shop/CartController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+        <state relative-caret-position="287">
+          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
           <folding>
             <element signature="e#45#65#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2016_08_08_161721_addIncrementsTo_cart_product.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
