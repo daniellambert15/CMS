@@ -191,4 +191,14 @@ class CustomerController extends Controller
             return $customer->id;
         }
     }
+
+    public function customerDetails($id){
+        // Display the customer details, eg:
+        // invoices
+        // shop orders
+        // leads
+        // trackings
+
+        return view('admin.details.customer', ['customer' => Customer::findOrFail($id)]);
+    }
 }

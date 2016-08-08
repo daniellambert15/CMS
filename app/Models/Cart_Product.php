@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Cart_Product extends Model
 {
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'cart_product';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -20,9 +27,9 @@ class Cart_Product extends Model
         return $this->hasOne('App\Models\Cart');
     }
 
-    public function products()
+    public function product()
     {
-        return $this->hasOne('App\Models\Product');
+        return $this->hasOne('App\Models\Product', 'id', 'product_id');
     }
 
 }

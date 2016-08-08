@@ -15,14 +15,12 @@ class Cart extends Model
 
     // now we create our connections
 
-    public function products()
-    {
+    public function products(){
         return $this->hasMany('App\Models\Cart_Product');
     }
 
-    public function delivery()
-    {
-        return $this->hasOne('App\Models\Delivery');
+    public function delivery(){
+        return $this->hasOne('App\Models\Delivery', 'id', 'delivery_id');
     }
 
     public function invoice(){

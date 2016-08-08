@@ -71,6 +71,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'tracking' => \App\Http\Middleware\TrackingMiddleware::class,
+        'basket' => \App\Http\Middleware\BasketMiddleware::class,
         'customerAuth' => \App\Http\Middleware\Customer\Authenticate::class,
         'customerGuest' => \App\Http\Middleware\Customer\RedirectIfAuthenticated::class,
     ];

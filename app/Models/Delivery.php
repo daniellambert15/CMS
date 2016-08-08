@@ -12,6 +12,12 @@ class Delivery extends Model
      * @var array
      */
     protected $fillable = ['addressLine1', 'addressLine2', 'town', 'county', 'postcode', 'firstName', 'surname'];
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'delivery';
 
     public function carts()
     {

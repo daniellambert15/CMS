@@ -44,17 +44,28 @@ class Customer extends Model implements AuthenticatableContract,
      */
     protected $dates = ['deleted_at'];
 
-    public function carts()
-    {
-        return $this->hasMany('App\Models\Cart');
-    }
-
     public function deliveryAddresses()
     {
         return $this->hasMany('App\Models\Delivery_Address');
     }
 
     public function leads(){
-        return $this->hasMany('App\Models\Leads', 'id', 'customer_id');
+        return $this->hasMany('App\Models\Lead', 'customer_id', 'id');
+    }
+
+    public function trackings(){
+        return $this->hasMany('App\Models\Tracking', 'trackingid', 'tracking_id');
+    }
+
+    public function invoices(){
+        return $this->hasMany('App\Models\Invoice', 'customer_id', 'id');
+    }
+
+    public function carts(){
+        return $this->hasMany('App\Models\Cart', 'customer_id', 'id')->where("processed", "N");
+    }
+
+    public function orders(){
+        return $this->hasMany('App\Models\Cart', 'customer_id', 'id')->where("processed", "Y");
     }
 }

@@ -53,7 +53,7 @@
                                 </td>
                                 <td>
                                     @can('customerInvoices')
-                                        <a class="btn btn-success btn-sm" title="View Invoices" href="{{ route('dashboard.customer.invoices', ['id' => $customer->id]) }}" role="button"><i class="fa fa-file-pdf-o"></i></a>
+                                        <a class="btn btn-success btn-sm" title="View Customers Details" href="{{ route('dashboard.customer.details', ['id' => $customer->id]) }}" role="button"><i class="fa fa-user"></i></a>
                                     @endcan
                                     @can('editCustomer')
                                         <a class="btn btn-primary btn-sm" title="edit Customer" href="{{ route('dashboard.edit.customer', ['id' => $customer->id]) }}" role="button"><i class="fa fa-pencil-square-o"></i></a>

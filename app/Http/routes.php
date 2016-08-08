@@ -11,6 +11,31 @@
 |
 */
 
+Route::get('/checkCode', function (){
+//    $customer = \App\Models\Customer::find(1);
+////    dd($customer->trackings->pageId);
+//
+//    $table = null;
+//    foreach($customer->trackings as $track){
+//        $table .= $track->pageId.'<br />';
+//    }
+
+//    $cart = \App\Models\Cart::Where('tracking_id', session('trackingId'))
+//        ->where('invoice_id', null)
+//        ->where('processed', "N")->get()->first();
+
+
+    $cart = New \App\Models\Cart;
+    $cart->customer_id = '1';
+    $cart->tracking_id = '1';
+    $cart->save();
+
+
+    dd($cart->id);
+
+    //return $table;
+});
+
 Route::group(['prefix' => 'dashboard', 'middleware' => 'admin'], function () {
 
     Route::get('login', 'AdminAuth\AuthController@showLoginForm');
@@ -97,7 +122,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'admin'], function () {
     // Destrory
     Route::get('/destroyCustomers/{id}', 'CustomerController@destroy')->name('dashboard.destroy.customer');
     // Invoices
-    Route::get('/customerInvoices/{id}', 'CustomerController@index')->name('dashboard.customer.invoices');
+    //Route::get('/customerInvoices/{id}', 'CustomerController@index')->name('dashboard.customer.invoices');
+    // Details
+    Route::get('/customerDetails/{id}', 'CustomerController@customerDetails')->name('dashboard.customer.details');
 
 
 //// Images ////
@@ -184,7 +211,7 @@ Route::get('/dashboard/', function(){
 });
 
 
-Route::group(['middleware' => ['web', 'tracking']], function () {
+Route::group(['middleware' => ['web', 'tracking', 'basket']], function () {
 
     Route::get('/', function(){
         return redirect('/home.html');
@@ -197,7 +224,13 @@ Route::group(['middleware' => ['web', 'tracking']], function () {
     Route::get('/{url}.html', 'SiteController@index');
 
     // Shop
+    Route::get('/Shop/cart.html', 'shop\CartController@cart');
+
+    // Shop
     Route::get('/Shop/{product}.html', 'SiteController@shop');
+
+    // addProductToBasket
+    Route::post('/Shop/addToBasket', 'shop\CartController@store');
 
 
     // tracking

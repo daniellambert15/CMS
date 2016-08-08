@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\shop\CartController;
 use App\Models\Product;
+use App\Http\Controllers\shop\CartController as Cart;
 use Cookie;
 use App\Models\Page;
 use App\Models\Tracking;
