@@ -46,15 +46,13 @@ class CartController extends Controller
         $this->cartId = null;
 
         if ($customer != null) {
-            $existingCart = Cart::Where('customer_id', $customer)
-                ->where('processed', 'N')
-                ->where('invoice_id', null)->get()->id;
-            $this->cartId = $existingCart;
-        } else {
-            $existingCart = Cart::Where('tracking_id', session('trackingId'))
+            $this->cartId = Cart::Where('customer_id', $customer)
                 ->where('processed', 'N')
                 ->where('invoice_id', null)->get()->first()->id;
-            $this->cartId = $existingCart;
+        } else {
+            $this->cartId = Cart::Where('tracking_id', session('trackingId'))
+                ->where('processed', 'N')
+                ->where('invoice_id', null)->get()->first()->id;
         }
 
         if ($this->cartId == null) {
@@ -81,6 +79,23 @@ class CartController extends Controller
 
         $product = Product::where('id',$request->input('id'))
         ->where('live', 'Y')->get()->first();
+
+        // To save a messy basket, with mutiples of the same poduct in, we're going to search to see
+        // if its already got the product in it.
+
+        // get the cart information
+        $cart = Cart::find(session('basketId'));
+
+        // if cart has the product, update the price.
+        if($cart->products->where('product_id', $request->input('id'))->count() > 0)
+        {
+            // update the product quantity
+            $cart->products->where(
+                'product_id',
+                    $request->input('id'))->first()->increment('quantity', $request->input('quantity'));
+
+            return redirect('/Shop/cart.html')->with('success', 'You\'ve added '.$product->name.'(s) to your basket!');
+        }
 
         // this will add a product to the basket.
         $cartProduct = new Cart_Product;
@@ -143,5 +158,35 @@ class CartController extends Controller
 
         $cart = Cart::find(session('basketId'));
         return view('site.cart', ['cart' => $cart]);
+    }
+
+    public function decrement($id){
+        $item = Cart::find(session('basketId'))->products->where(
+            'product_id',
+            $id)->first();
+
+        // update the product quantity
+        if($item->quantity > 1)
+        {
+            $item->decrement('quantity', 1);
+            return redirect('/Shop/cart.html')->with('success', 'You\'ve removed 1 item from your product total');
+        }
+        return redirect('/Shop/cart.html')->with('error', 'You cannot remove your last quantity. To remove the product, please press the bin icon.');
+    }
+
+    public function increment($id){
+        Cart::find(session('basketId'))->products->where(
+            'product_id',
+            $id)->first()->increment('quantity', 1);
+
+        return redirect('/Shop/cart.html')->with('success', 'You\'ve added 1 item from your product total');
+    }
+
+    public function trash($id){
+        Cart::find(session('basketId'))->products->where(
+            'product_id',
+            $id)->first()->delete();
+
+        return redirect('/Shop/cart.html')->with('success', 'You\'ve removed your product');
     }
 }

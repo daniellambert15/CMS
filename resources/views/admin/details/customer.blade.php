@@ -96,77 +96,90 @@
     @if(count($customer->orders) > 0)
         <h2>Orders</h2>
         @foreach($customer->orders as $order)
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2>#{{ $order->id }}</h2>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">#{{ $order->id }}</h3>
                 </div>
-            </div>
-            <div class="row" >
-                <div class="col-xs-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Delivery Address</h3>
-                        </div>
-                        <div class="panel-body">
-                            {!! $order->delivery->firstName !!} {!! $order->delivery->surname !!}<br />
-                            {!! $order->delivery->addressLine1 !!}<br />
-                            {!! $order->delivery->addressLine2 !!}<br />
-                            {!! $order->delivery->town !!}<br />
-                            {!! $order->delivery->county !!}<br />
-                            {!! $order->delivery->postcode !!}
-                        </div>
-                    </div>
+                <div class="panel-body">
 
-                </div>
-                <div class="col-xs-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Invoice Details</h3>
+                    <div class="row" >
+                        <div class="col-xs-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Delivery Address</h3>
+                                </div>
+                                <div class="panel-body">
+                                    {!! $order->delivery->firstName !!} {!! $order->delivery->surname !!}<br />
+                                    {!! $order->delivery->addressLine1 !!}<br />
+                                    {!! $order->delivery->addressLine2 !!}<br />
+                                    {!! $order->delivery->town !!}<br />
+                                    {!! $order->delivery->county !!}<br />
+                                    {!! $order->delivery->postcode !!}
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="panel-body">
-                            Invoice: {!! $order->invoice->location !!}<br />
-                            Created: {!! $order->created_at !!}<br />
-                            Paid: {{ $order->invoice->created_at }}
+                        <div class="col-xs-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Invoice Details</h3>
+                                </div>
+                                <div class="panel-body">
+                                    Invoice: {!! $order->invoice->location !!}<br />
+                                    Created: {!! $order->created_at !!}<br />
+                                    Paid: {{ $order->invoice->created_at }}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Totals</h3>
-                        </div>
-                        <div class="panel-body">
-                            Product Total: &pound;{{ $order->products->sum(function($item) { return $item->price * $item->quantity; }) / 100 }}<br />
-                            Delivery Total: &pound;{{ $order->products->sum(function($item) { return $item->delivery * $item->quantity; }) / 100 }}<br />
-                            VAT: &pound;{{
+                        <div class="col-xs-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Totals</h3>
+                                </div>
+                                <div class="panel-body">
+                                    Product Total: &pound;{{ $order->products->sum(function($item) { return $item->price * $item->quantity; }) / 100 }}<br />
+                                    Delivery Total: &pound;{{ $order->products->sum(function($item) { return $item->delivery * $item->quantity; }) / 100 }}<br />
+                                    VAT: &pound;{{
                     ($order->products->sum(function($item) { return $item->price * $item->quantity; }) / 100 * 0.2) }}<br />
-                            Total: &pound;{{
+                                    Total: &pound;{{
                     ($order->products->sum(function($item) { return $item->price * $item->quantity; }) / 100  * 1.2) +
                     ($order->products->sum(function($item) { return $item->delivery * $item->quantity; }) / 100) }}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-xs-12">
-                    <div class="box">
-                        <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Delivery</th>
-                                    <th>Total</th>
-                                </tr>
-                                @foreach($order->products as $product)
-                                    <tr>
-                                        <td>{!! $product->product->name !!}</td>
-                                        <td>&pound;{!! $product->price / 100 !!}</td>
-                                        <td>{!! $product->quantity !!}</td>
-                                        <td>&pound;{!! $product->delivery / 100 !!}</td>
-                                        <td>&pound;{!! ($product->price / 100 * $product->quantity) + ($product->delivery / 100 * $product->quantity) !!}</td>
-                                    </tr>
-                                @endforeach
-                            </table>
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <div class="box-body table-responsive no-padding">
+                                    <table class="table table-hover">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Delivery</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        @foreach($order->products as $product)
+                                            <tr>
+                                                <td>
+                                                    {!! $product->product->name !!}
+                                                </td>
+                                                <td>
+                                                    &pound;{!! $product->price / 100 !!}
+                                                </td>
+                                                <td>
+                                                    {!! $product->quantity !!}
+                                                </td>
+                                                <td>
+                                                    &pound;{!! $product->delivery / 100 !!}
+                                                </td>
+                                                <td>
+                                                    &pound;{!! ($product->price / 100 * $product->quantity) + ($product->delivery / 100 * $product->quantity) !!}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

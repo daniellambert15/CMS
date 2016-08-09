@@ -17,8 +17,6 @@ class Product extends Model
     
     protected $dates = ['deleted_at'];
 
-
-
     /**
      * The attributes that are mass assignable.
      *

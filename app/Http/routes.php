@@ -232,6 +232,15 @@ Route::group(['middleware' => ['web', 'tracking', 'basket']], function () {
     // addProductToBasket
     Route::post('/Shop/addToBasket', 'shop\CartController@store');
 
+    // decrement
+    Route::get('/Shop/decrement/{id}', 'shop\CartController@decrement');
+
+    // increment
+    Route::get('/Shop/increment/{id}', 'shop\CartController@increment');
+
+    // trash
+    Route::get('/Shop/trash/{id}', 'shop\CartController@trash');
+
 
     // tracking
     Route::get('/forward/', 'ForwardController@forward');
