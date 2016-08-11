@@ -21,27 +21,52 @@
         </div>
     @endif
 
-    <p>Here are the details of {!! $customer->firstName !!} {!! $customer->surname !!} who has visited the site and posibly become a member.</p>
-    <h2>Details</h2>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tr>
-                            <th>First Name</th>
-                            <th>Surname</th>
-                            <th>Telephone</th>
-                            <th>Email</th>
-                        </tr>
+    <p>Here are the details of {!! $customer->firstName !!} {!! $customer->surname !!}.</p>
 
-                        <tr>
-                            <td>{!! $customer->firstName!!}</td>
-                            <td>{!! $customer->surname !!}</td>
-                            <td>{!! $customer->telephone !!}</td>
-                            <td>{!! $customer->email !!}</td>
-                        </tr>
-                    </table>
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Details</h3>
+                </div>
+                <div class="panel-body">
+                    <strong>First Name:</strong> {!! $customer->firstName!!}<br />
+                    <strong>Surname:</strong> {!! $customer->surname !!}<br />
+                    <strong>Telephone:</strong> {!! $customer->telephone !!}<br />
+                    <strong>Email:</strong> {!! $customer->email !!}<br />
+                    <strong>Member Since:</strong> {!! $customer->created_at !!}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Orders</h3>
+                </div>
+                <div class="panel-body">
+                    <strong>Number of Orders:</strong> {!! count($customer->orders) !!}<br />
+                    <strong>Number of Open Carts:</strong> {!! count($customer->carts) !!}<br />
+                    <strong>Total Earnings:</strong>
+                    <?php
+                        $total = null;
+                        foreach($customer->orders as $order){
+                            $total = $total + $order->products->sum(function($item) { return $item->price * $item->quantity; }) / 100;
+                        }
+                    ?>
+
+                    &pound;{!! $total !!}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Leads</h3>
+                </div>
+                <div class="panel-body">
+                    <strong>Number of Leads:</strong> {!! count($customer->leads) !!}<br />
+                    <strong>Number of ECIS Jobs:</strong> {!! count($customer->leads->where('ecisJobNumber', '<>', '')) !!}<br />
+                    <strong>Money from Leads:</strong> {!! $customer->leads->sum(function($item) { return $item->jobPrice; })!!}<br />
                 </div>
             </div>
         </div>
@@ -191,31 +216,56 @@
     @if(count($customer->carts) > 0)
         <h2>Shopping Baskets</h2>
         @foreach($customer->carts as $cart)
-            <ul>
-                <li>Created: {!! $cart->created_at !!}</li>
-                <li>Product Total: </li>
-                <li>Delivery Total: </li>
-                <li>VAT: </li>
-                <li>Total:</li>
-            </ul>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="box">
-                        <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Delivery</th>
-                                </tr>
-                                @foreach($cart->products as $product)
-                                    <tr>
-                                        <td>{!! $product->product->name !!}</td>
-                                        <td>&pound;{!! $product->price / 100 !!}</td>
-                                        <td>&pound;{!! $product->delivery / 100 !!}</td>
-                                    </tr>
-                                @endforeach
-                            </table>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">#{{ $cart->id }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Cart Info</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <ul>
+                                        <li>Created: {!! $cart->created_at !!}</li>
+                                        <li>Product Total: </li>
+                                        <li>Delivery Total: </li>
+                                        <li>VAT: </li>
+                                        <li>Total:</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Cart</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="box-body table-responsive no-padding">
+                                        <table class="table table-hover">
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>Delivery</th>
+                                            </tr>
+                                            @foreach($cart->products as $product)
+                                                <tr>
+                                                    <td>{!! $product->product->name !!}</td>
+                                                    <td>&pound;{!! $product->price / 100 !!}</td>
+                                                    <td>&pound;{!! $product->delivery / 100 !!}</td>
+                                                </tr>
+                                            @endforeach
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

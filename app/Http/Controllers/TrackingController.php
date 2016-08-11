@@ -10,9 +10,11 @@ use Cookie;
 use App\Models\Lead;
 use App\Models\Page;
 use App\Models\User;
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Tracking;
 use App\Models\TrackingClick;
+use Illuminate\Support\Facades\Session;
 
 class TrackingController extends Controller
 {
@@ -127,14 +129,47 @@ class TrackingController extends Controller
         }
 
         // now we want to update ALL their clicks they've done now, with the old tracking Id, IF a new one is set.
-
         if($request->cookie('trackingId') != $trackingCode)
         {
             Cookie::queue('trackingId', $trackingCode, time() + (10 * 365 * 24));
             Tracking::where('trackingId',"=",$request->cookie('trackingId'))->update(['trackingId' => $trackingCode]);
             Lead::where('trackingId',"=",$request->cookie('trackingId'))->update(['trackingId' => $trackingCode]);
         }
-
         return $trackingCode;
+    }
+
+    public function customerLoginSetTrackingCodeToCustomers($customer)
+    {
+        /*
+            So we've got the customers ID number, we've got their tracking ID too.
+            Now what we need to do is update all of the tracking_id to the customers
+            tracking ID. Then we need to update the basket to give it a customer ID,
+            as well as updating the trackingID on the basket.
+            Tracking ID needs to be updated on all leads too, however, after we've updated
+            the tracking ID on the leads, we need to select it by the email also.
+        */
+
+        // first, tracking codes
+        Tracking::where('trackingId', session('trackingId'))
+            ->update([
+                'trackingId' => $customer->tracking_id,
+                'visitedBefore' => 'Y'
+            ]);
+
+        Lead::where('trackingId', session('trackingId'))->orWhere('email', $customer->email)
+            ->update([
+                'trackingId' => $customer->tracking_id
+            ]);
+
+        Cart::where('tracking_id', session('trackingId'))->orWhere('customer_id', $customer->id)
+            ->update([
+                'tracking_id' => $customer->tracking_id,
+                'customer_id' => $customer->id
+            ]);
+
+        Cookie::queue(Cookie::make('trackingId', $customer->tracking_id, 45000));
+        Session([
+            'trackingId' => $customer->tracking_id
+        ]);
     }
 }

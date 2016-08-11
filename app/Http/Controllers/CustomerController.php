@@ -179,13 +179,12 @@ class CustomerController extends Controller
         //dd($customer);
 
         if($customer){
-
             // great we know the lead has got an account, we want to return the customer id
 
             // but lets say they've submitted a few leads off, without having an account. they then sign up for an account
             // 4 form submits later, we want to then sign update all the forms sent from this customer.
 
-            Lead::where('email', '=', $customer->email)->update(['customer_id' => $customer->id]);
+            Lead::where('email', $customer->email)->update(['customer_id' => $customer->id]);
 
             // now  we can return the customer ID
             return $customer->id;

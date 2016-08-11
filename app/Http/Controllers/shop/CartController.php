@@ -56,6 +56,7 @@ class CartController extends Controller
         }
 
         if ($this->cartId == null) {
+
             $cart = New Cart;
             $cart->customer_id = $customer;
             $cart->tracking_id = session('trackingId');
